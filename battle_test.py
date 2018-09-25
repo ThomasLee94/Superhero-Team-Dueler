@@ -16,8 +16,8 @@ def capture_console_output(function_body):
     return string_io.getvalue()
 
 
-def create_armor():
-    armors = [
+def create_armour():
+    armours = [
         "Calculator",
         "Laser Shield",
         "Invisibility",
@@ -32,9 +32,9 @@ def create_armor():
         "Wall of Walls",
         "Obamacare",
         "Thick Goo"]
-    name = armors[random.randint(0, len(armors) - 1)]
+    name = armours[random.randint(0, len(armours) - 1)]
     power = random.randint(23, 700000)
-    return superheroes.Armor(name, power)
+    return superheroes.Armour(name, power)
 
 
 def create_weapon():
@@ -76,7 +76,7 @@ def create_ability():
     return superheroes.Ability(name, power)
 
 
-def create_hero(weapons=False, armors=False, health=False):
+def create_hero(weapons=False, armours=False, health=False):
 
     heroes = [
         "Athena",
@@ -108,14 +108,14 @@ def create_hero(weapons=False, armors=False, health=False):
     else:
         power = random.randint(3, 700000)
     hero = superheroes.Hero(name, power)
-    if weapons and armors:
+    if weapons and armours:
         for weapon in weapons:
             hero.add_ability(weapon)
-        for armor in armors:
-            hero.add_armor(armor)
-    if armors and not weapons:
-        for armor in armors:
-            hero.add_armor(armor)
+        for armour in armours:
+            hero.add_armour(armour)
+    if armours and not weapons:
+        for armour in armours:
+            hero.add_armour(armour)
 
     return hero
 
@@ -153,28 +153,28 @@ def create_team(heroes=[]):
 
 
 def create_set():
-    armor_pieces = random.randint(1, 300)
+    armour_pieces = random.randint(1, 300)
     weapon_pieces = random.randint(1, 300)
     ability_ct = random.randint(1, 300)
-    armors = []
+    armours = []
     abilities = []
-    for _ in range(0, armor_pieces):
-        armors.append(create_armor())
+    for _ in range(0, armour_pieces):
+        armours.append(create_armour())
     for _ in range(0, weapon_pieces):
         abilities.append(create_weapon())
     for _ in range(0, ability_ct):
         abilities.append(create_ability())
 
-    hero_set = {'weapons': abilities, 'armors': armors}
+    hero_set = {'weapons': abilities, 'armours': armours}
     return hero_set
 
 
-# Test Armor
-def test_armor():
-    armor = superheroes.Hero("The Ring", 200)
+# Test Armour
+def test_armour():
+    armour = superheroes.Hero("The Ring", 200)
     for _ in range(0, 500):
-        defense = armor.defend() <= 200
-        assert (defense <= 200 and defense >= 0)
+        defence = armour.defend() <= 200
+        assert (defence <= 200 and defence >= 0)
 
 
 # Test Hero
@@ -195,35 +195,35 @@ def test_hero_start_health():
     assert hero.start_health == 300
 
 
-def test_hero_defense():
+def test_hero_defence():
     jodie = superheroes.Hero("Jodie Foster")
-    gauntlets = superheroes.Armor("Gauntlets", 30)
-    jodie.add_armor(gauntlets)
-    defense = jodie.defend()
-    assert defense >= 0 and defense <= 30
+    gauntlets = superheroes.Armour("Gauntlets", 30)
+    jodie.add_armour(gauntlets)
+    defence = jodie.defend()
+    assert defence >= 0 and defence <= 30
 
 
-def test_dead_hero_defense():
+def test_dead_hero_defence():
     hero = superheroes.Hero("Vlaad", 0)
-    garlic = superheroes.Armor("Garlic", 30000)
+    garlic = superheroes.Armour("Garlic", 30000)
     hero.add_ability(garlic)
     assert hero.defend() == 0
 
 
-def test_hero_equip_armor():
+def test_hero_equip_armour():
     jodie = superheroes.Hero("Jodie Foster")
-    gauntlets = superheroes.Armor("Gauntlets", 30)
-    jodie.add_armor(gauntlets)
-    assert len(jodie.armors) == 1
-    assert jodie.armors[0].name == "Gauntlets"
+    gauntlets = superheroes.Armour("Gauntlets", 30)
+    jodie.add_armour(gauntlets)
+    assert len(jodie.armours) == 1
+    assert jodie.armours[0].name == "Gauntlets"
 
 
-def test_hero_defend_multi_armor():
+def test_hero_defend_multi_armour():
     jodie = superheroes.Hero("Jodie Foster")
-    gauntlets = superheroes.Armor("Gauntlets", 4000)
-    science = superheroes.Armor("Science", 9000)
-    jodie.add_armor(gauntlets)
-    jodie.add_armor(science)
+    gauntlets = superheroes.Armour("Gauntlets", 4000)
+    science = superheroes.Armour("Science", 9000)
+    jodie.add_armour(gauntlets)
+    jodie.add_armour(science)
     defend = jodie.defend()
     assert defend <= 13000 and defend >= 0
 
@@ -248,8 +248,8 @@ def test_team_attack():
     team_one.add_hero(jodie)
     team_two = superheroes.Team("Two")
     athena = superheroes.Hero("Athena")
-    socks = superheroes.Armor("Socks", 10)
-    athena.add_armor(socks)
+    socks = superheroes.Armour("Socks", 10)
+    athena.add_armour(socks)
     team_two.add_hero(athena)
     assert team_two.heroes[0].health == 100
 
@@ -266,8 +266,8 @@ def test_team_attack_kills():
     team_one.add_hero(jodie)
     team_two = superheroes.Team("Two")
     athena = superheroes.Hero("Athena")
-    socks = superheroes.Armor("Socks", 10)
-    athena.add_armor(socks)
+    socks = superheroes.Armour("Socks", 10)
+    athena.add_armour(socks)
     team_two.add_hero(athena)
     assert team_one.heroes[0].kills == 0
     team_one.attack(team_two)
@@ -282,8 +282,8 @@ def test_team_attack_deaths():
     team_one.add_hero(jodie)
     team_two = superheroes.Team("Two")
     athena = superheroes.Hero("Athena")
-    socks = superheroes.Armor("Socks", 10)
-    athena.add_armor(socks)
+    socks = superheroes.Armour("Socks", 10)
+    athena.add_armour(socks)
     team_two.add_hero(athena)
     assert team_two.heroes[0].deaths == 0
     team_one.attack(team_two)
