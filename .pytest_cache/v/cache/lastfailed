@@ -2,6 +2,5 @@
   "battle_test.py::test_dead_hero_defense": true,
   "battle_test.py::test_hero_defend_multi_armor": true,
   "battle_test.py::test_hero_defense": true,
-  "battle_test.py::test_hero_equip_armor": true,
-  "hero_test.py": true
+  "battle_test.py::test_hero_equip_armor": true
 }
